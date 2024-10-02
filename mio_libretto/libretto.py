@@ -1,3 +1,5 @@
+import operator
+
 import voto
 
 class libretto:
@@ -9,7 +11,7 @@ class libretto:
         if self.esisteUguale(voti) == False and self.cercaConflitto(voti) == False:
             self._voti.append(voti)
         else:
-            print(f'{voti} esiste già o è in conflitto')
+            raise ValueError(f'{voti} esiste già o è in conflitto')
 
     def find_by_points(self, points):
 
@@ -31,8 +33,8 @@ class libretto:
         for v in self._voti:
             if v.nome_corso == nome:
                 return v
+        raise ValueError(f"Esame '{v.nome_corso}' non presente nel libretto")
 
-        return None
 
     def cercaConflitto(self, voto):
         for v in self._voti:
@@ -44,9 +46,13 @@ class libretto:
 
         nuovo = libretto()
         for v in self._voti:
-            nuovo.add_voti(v)
+            nuovo.add_voti(v.copy())
 
         return nuovo
+
+
+
+
 
     def librettoMigliorato(self):
 
@@ -61,3 +67,24 @@ class libretto:
                 v.punteggio = 30
 
         return migliorato
+
+    def stampa(self):
+        for v in self._voti:
+            print(v)
+
+    def ordinaPerEsame(self):
+
+        self._voti.sort(key=operator.attrgetter('nome_corso'))
+
+    def ordinaPerVoto(self):
+        self._voti.sort(key=lambda x: x.punteggio, reverse=True)
+
+    def creaOrdinatoEsame(self):
+        nuovo = self.copy()
+        nuovo.ordinaPerEsame()
+        return nuovo
+
+    def creaOrdinatoVoto(self):
+        nuovo = self.copy()
+        nuovo.ordinaPerVoto()
+        return nuovo

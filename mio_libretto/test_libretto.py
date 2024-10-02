@@ -1,5 +1,6 @@
 import voto, libretto
 
+
 l1 = libretto.libretto()
 
 v1 = voto.Voto("Analisi 1", 25, "2020-01-22" )
@@ -22,13 +23,25 @@ if l1.esisteUguale(v4) == True:
 cercato = l1.cercaPerNome("Fisica 1")
 if cercato != None:
     print(cercato)
+else:
+    print("esame non trovato")
 
 v5 = voto.Voto("Analisi 1", 24, "2020-01-22" )
 
 if l1.cercaConflitto(v5) == True:
     print("Voto in conflitto con esame già a libretto")
 
-l1.add_voti(v4)
-l1.add_voti(v5)
+#l1.add_voti(v4)
+#l1.add_voti(v5)
 
 migliorato = l1.librettoMigliorato()
+
+#l1.stampa()
+#migliorato.stampa()
+
+ordNome = l1.creaOrdinatoEsame()
+ordNome.stampa()
+
+ordVoto = l1.creaOrdinatoVoto()
+ordVoto.stampa()
+
