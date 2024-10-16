@@ -2,7 +2,7 @@ import operator
 
 import voto
 
-class libretto:
+class Libretto:
 
     def __init__(self):
         self._voti = []
@@ -88,3 +88,18 @@ class libretto:
         nuovo = self.copy()
         nuovo.ordinaPerVoto()
         return nuovo
+
+    def cancella_inferori(self, punteggio):
+        #metodo remove itera la lista gni volta, anche se c'è un for
+        #metodo pop non va bene, vado a lavorare su una lista su cui sto iterando, ogni volta che cancello si aggiornano gli indici, facendomi perdere dei dati
+        #soluzione: creo una copia (malino) o costruisco nuova lista con ciò da mantenere
+
+        voti_nuovi = []
+        for v in self._voti:
+            if v.punteggio >= punteggio:
+                voti_nuovi.append(v)
+
+        voti_nuovi =  [ v for v in self._voti if v.punteggio >= punteggio]
+
+        self._voti = voti_nuovi
+
